@@ -18,25 +18,6 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
     }
 
     return false;
-
-    /*
-    if (ev->type() == QEvent::MouseButtonPress) {
-
-          QMouseEvent* mouseEvent = (QMouseEvent*)ev;
-          if (mouseEvent->type() == QMouseEvent::MouseButtonPress)
-         {
-             mCursorX = mouseEvent->x();
-             mCursorY = mouseEvent->y();
-
-             if (mCursorX > 900) {
-                 //close();
-             }
-          }
-    }
-
-   return false;
-    */
-
 }
 
 void MyGraphicsScene2::keyPressEvent(QKeyEvent * event) {

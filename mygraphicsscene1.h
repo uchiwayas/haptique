@@ -3,8 +3,12 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QLabel>
 #include <QMouseEvent>
 #include <QMainWindow>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
+
 class MainWindow;
 
 
@@ -24,6 +28,8 @@ public:
 private:
     int mCursorX;
     int mCursorY;
+    QLabel* lbl;
+    bool buttonPressed = false;
 };
 
 #endif // MYGRAPHICSSCENE1_H
