@@ -30,6 +30,7 @@ private:
     int mCursorY;
     QLabel* lbl;
     bool buttonPressed = false;
+    QGraphicsPixmapItem* monImage;
 };
 
 #endif // MYGRAPHICSSCENE1_H

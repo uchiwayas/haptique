@@ -15,15 +15,16 @@ MyGraphicsScene1::MyGraphicsScene1(MainWindow *w) :
     this->setBackgroundBrush(QBrush(bkgnd.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
 
 
-    lbl = new QLabel("Hello!", this->mainWindow);
-    lbl->setFixedWidth(80);
-    lbl->setFixedHeight(35);
+    lbl = new QLabel("Hello my firneifneoin pô,rjghpemor,j msolp,g", this->mainWindow);
+    lbl->setFixedWidth(600);
+    lbl->setFixedHeight(75);
     lbl->showFullScreen();
+    lbl->setAlignment(Qt::AlignCenter);
 
-    QPixmap owo("C:/Users/M2IHM/Documents/projet_hap/img/owo.png");
+    QPixmap owo("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");
     QGraphicsView* view = new QGraphicsView(this);
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(owo);
-    this->addItem(item);
+    monImage = new QGraphicsPixmapItem(owo);
+    this->addItem(monImage);
 }
 
 bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
@@ -36,7 +37,8 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
              mCursorX = QCursor::pos().x();
              mCursorY = QCursor::pos().y();
 
-             lbl->setGeometry(mCursorX, mCursorY, 80, 35); //80:width 35:height
+             lbl->setGeometry(mCursorX, mCursorY, 600, 75);
+             monImage->setPos(mCursorX, mCursorY);
              qDebug() << lbl->geometry().x();
          }
     }
