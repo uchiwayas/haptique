@@ -37,19 +37,19 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
 
 bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
 {
-    if (ev->type() == QEvent::GraphicsSceneMousePress) {
+    if (ev->type() == QEvent::GraphicsSceneMousePress && state != 2) {
         if (checkGoNext()) {
             if (state == 0) {
                 state = 1;
-                lbl->setText("page 1");
+                lbl->setText("<h3>Georges s'approche de la table pour tenter de résoudre l'énigme</h3>");
                 lbl->show();
                 fondBlanc->show();
-                //backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/1.png");
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/1.png");
             } else if (state == 1) {
                 state = 2;
-
-            } else if (state == 2) {
-                state = 3;
+                lbl->hide();
+                fondBlanc->hide();
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/2.png");
 
             } else if (state == 3) {
                 state = 4;
@@ -60,6 +60,9 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
             this->setBackgroundBrush(QBrush(backgroundImg));
             this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
         }
+    } else if (state == 2) {
+        //gestion des cubes
+
     }
 
     return false;
