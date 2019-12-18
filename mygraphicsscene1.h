@@ -19,8 +19,9 @@ public:
     MyGraphicsScene1(MainWindow *w);
 
     //functions
-    virtual bool eventFilter(QObject *object, QEvent *ev) override;
+    bool eventFilter(QObject *object, QEvent *ev);
     void keyPressEvent(QKeyEvent * event);
+    bool checkGoNext();
 
     //elements
     MainWindow * mainWindow;
@@ -30,7 +31,11 @@ private:
     int mCursorY;
     QLabel* lbl;
     bool buttonPressed = false;
-    QGraphicsPixmapItem* monImage;
+    QGraphicsPixmapItem* fondBlanc;
+
+    //etat du jeu
+    int state = 0;
+    QPixmap backgroundImg;
 };
 
 #endif // MYGRAPHICSSCENE1_H

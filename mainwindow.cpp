@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     installEventFilter(this);
-    this->setMouseTracking(true);
 
     this->showFullScreen();
     //this->move(QPoint(0,0));
@@ -15,7 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setSceneRect(0,0,ui->graphicsView->width() - 5, ui->graphicsView->height() - 5);
 
-    this->SetScene(new MyGraphicsScene1(this));
+    this->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+
+    scene = new MyGraphicsScene1(this);
+    this->SetScene(scene);
 }
 
 void MainWindow::SetScene(QGraphicsScene *scene) {

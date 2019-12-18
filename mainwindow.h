@@ -20,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    MyGraphicsScene1 * scene;
 };
 
 #endif // MAINWINDOW_H
