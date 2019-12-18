@@ -1,3 +1,4 @@
+#include "mygraphicsscene1.h"
 #include "mygraphicsscene2.h"
 #include "mainwindow.h"
 
@@ -10,12 +11,12 @@ MyGraphicsScene1::MyGraphicsScene1(MainWindow *w) :
 
     installEventFilter(this);
     this->mainWindow = w;
-    backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/0.png");
+    backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/couverture.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
 
 
-    lbl = new QLabel("Livre interactif :<h3 style='color:#aa0000';>Goerges Lewdcas au pays des merveilles</h3>Appuyez à droite pour commencer", this->mainWindow);
+    lbl = new QLabel("", this->mainWindow);
     lbl->setWordWrap(true);
     lbl->setFixedWidth(600);
     lbl->setFixedHeight(75);
@@ -30,6 +31,9 @@ MyGraphicsScene1::MyGraphicsScene1(MainWindow *w) :
     //position de texte et fond blanc
     lbl->setGeometry(mainWindow->width()/2 - lbl->width()/2, 20, 600, 75);
     fondBlanc->setPos(mainWindow->width()/2 - lbl->width()/2, 20);
+
+    lbl->hide();
+    fondBlanc->hide();
 }
 
 bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
@@ -38,27 +42,32 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
         if (checkGoNext()) {
             if (state == 0) {
                 state = 1;
-                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/1.png");
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/0.png");
                 lbl->hide();
                 fondBlanc->hide();
-            } else if (state == 1) {
+            }
+            else if (state == 1) {
                 state = 2;
-                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/2.png");
-                lbl->setText("<h2>Goerges Lewdcas s'est réveillé dans une salle sombre et étrange, il décide de s'aventurer pour essayer de s'échaper</h2>");
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/1.png");
+                lbl->setText("<h2>\"Mais...Où suis-je ?\"</h2>");
                 lbl->show();
                 fondBlanc->show();
-
             } else if (state == 2) {
                 state = 3;
-                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/3.png");
-                lbl->setText("<h2>il trouve des trucs</h2>");
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/2.png");
+                lbl->setText("<h2>Goerges Lewdcas s'est réveillé dans une salle sombre et étrange, il décide de s'aventurer pour essayer de s'échaper</h2>");
 
             } else if (state == 3) {
                 state = 4;
+                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/3.png");
+                lbl->setText("<h2>il trouve des trucs</h2>");
+
+            } else if (state == 4) {
+                state = 5;
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/4.png");
                 lbl->setText("<h2>Au loin il voit une porte de sortie, qui semble être gardée par une sorte de puzzle</h2>");
 
-            } else if (state == 4) {
+            } else if (state == 5) {
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
                 mainWindow->SetScene(new MyGraphicsScene2(mainWindow));
@@ -68,33 +77,6 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
             this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
         }
     }
-
-    //image movement, use later for cubes
-    /*
-    if (ev->type() == QEvent::GraphicsSceneMouseMove && this->buttonPressed)
-    {
-         QMouseEvent* mouseEvent = (QMouseEvent*)ev;
-         if (mouseEvent->type() == QMouseEvent::GraphicsSceneMouseMove)
-         {
-             mCursorX = QCursor::pos().x();
-             mCursorY = QCursor::pos().y();
-
-             //lbl->setGeometry(mCursorX, mCursorY, 600, 75);
-             fondBlanc->setPos(mCursorX, mCursorY);
-             qDebug() << lbl->geometry().x();
-         }
-    }
-
-    else if (ev->type() == QEvent::GraphicsSceneMousePress)
-    {
-        this->buttonPressed = true;
-    }
-
-    else if (ev->type() == QEvent::GraphicsSceneMouseRelease)
-    {
-         this->buttonPressed = false;
-    }
-   */
     return false;
 }
 

@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mygraphicsscene1.cpp \
     mygraphicsscene2.cpp \
-    player.cpp
+    cube.cpp \
+    mygraphicsscene3.cpp
 
 HEADERS  += mainwindow.h \
     mygraphicsscene1.h \
     mygraphicsscene2.h \
-    player.h
+    cube.h \
+    mygraphicsscene3.h
 
 FORMS    += mainwindow.ui

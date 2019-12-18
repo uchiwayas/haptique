@@ -11,7 +11,6 @@
 
 class MainWindow;
 
-
 class MyGraphicsScene1 : public QGraphicsScene
 {
 public:

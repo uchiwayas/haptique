@@ -1,4 +1,5 @@
 #include "mygraphicsscene2.h"
+#include "mygraphicsscene3.h"
 #include "mainwindow.h"
 
 MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
@@ -33,6 +34,27 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
 
     lbl->hide();
     fondBlanc->hide();
+
+    //cube lourd
+    cubeLourd = new Cube(250, 300, 2);
+    lourdImg = cubeLourd->cubeImage;
+    this->addItem(lourdImg);
+    lourdImg->hide();
+    lourdImg->setPos(cubeLourd->x, cubeLourd->y);
+
+    //cube moyen
+    cubeMoyen = new Cube(450, 300, 1);
+    moyenImg = cubeMoyen->cubeImage;
+    this->addItem(moyenImg);
+    moyenImg->hide();
+    moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
+
+    //cube leger
+    cubeLeger = new Cube(650, 300, 0);
+    legerImg = cubeLeger->cubeImage;
+    this->addItem(legerImg);
+    legerImg->hide();
+    legerImg->setPos(cubeLeger->x, cubeLeger->y);
 }
 
 bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
@@ -52,19 +74,66 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/2.png");
 
             } else if (state == 3) {
-                state = 4;
-
-            } else if (state == 4) {
-
+                lbl->hide();
+                qDebug() << "passer a la prochaine scene";
+                mainWindow->SetScene(new MyGraphicsScene3(mainWindow));
             }
             this->setBackgroundBrush(QBrush(backgroundImg));
             this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
         }
     } else if (state == 2) {
+        //recup la position de la souris
+        mCursorX = QCursor::pos().x();
+        mCursorY = QCursor::pos().y();
+
         //gestion des cubes
 
-    }
+        //affichage
+        lourdImg->show();
+        moyenImg->show();
+        legerImg->show();
 
+        if (ev->type() == QEvent::GraphicsSceneMousePress) {                //selection du cube
+            if (detectCollisionCube(cubeLourd, mCursorX, mCursorY)) {
+                savedX = mCursorX - cubeLourd->x;
+                savedY = mCursorX - cubeLourd->x;
+                cubeLourd->clicked = true;
+                qDebug() << "dans cube lourd";
+            } else if (detectCollisionCube(cubeMoyen, mCursorX, mCursorY)) {
+                savedX = mCursorX - cubeMoyen->x;
+                savedY = mCursorX - cubeMoyen->x;
+                cubeMoyen->clicked = true;
+                qDebug() << "dans cube moyen";
+            } else if (detectCollisionCube(cubeLeger, mCursorX, mCursorY)) {
+                savedX = mCursorX - cubeLeger->x;
+                savedY = mCursorX - cubeLeger->x;
+                cubeLeger->clicked = true;
+                qDebug() << "dans cube leger";
+            }
+
+        } else if (ev->type() == QEvent::GraphicsSceneMouseRelease) {       //déselection du cube
+            cubeLourd->clicked = false;
+            cubeMoyen->clicked = false;
+            cubeLeger->clicked = false;
+
+            checkIfPuzzleSolved();
+
+        } else if (ev->type() == QMouseEvent::GraphicsSceneMouseMove){      //movement du cube
+            if (cubeLourd->clicked) {
+                cubeLourd->x = mCursorX - savedX;
+                cubeLourd->y = mCursorY - savedY;
+                lourdImg->setPos(cubeLourd->x, cubeLourd->y);
+            } else if (cubeMoyen->clicked) {
+                cubeMoyen->x = mCursorX - savedX;
+                cubeMoyen->y = mCursorY - savedY;
+                moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
+            } else if (cubeLeger->clicked) {
+                cubeLeger->x = mCursorX - savedX;
+                cubeLeger->y = mCursorY - savedY;
+                legerImg->setPos(cubeLeger->x, cubeLeger->y);
+            }
+        }
+    }
     return false;
 }
 
@@ -74,7 +143,6 @@ void MyGraphicsScene2::keyPressEvent(QKeyEvent * event) {
     }
 }
 
-
 bool MyGraphicsScene2::checkGoNext() {
     mCursorX = QCursor::pos().x();
     if (mCursorX > mainWindow->width() - 100) {
@@ -83,3 +151,25 @@ bool MyGraphicsScene2::checkGoNext() {
     return false;
 }
 
+bool MyGraphicsScene2::detectCollisionCube(Cube* cube, int x, int y) {
+    bool dansX = (x > cube->x) && (x < (cube->x + cube->taille));
+    bool dansY = (y > cube->y) && (y < (cube->y + cube->taille));
+    return dansX && dansY;
+}
+
+void MyGraphicsScene2::checkIfPuzzleSolved() {
+    bool lourdOK = ((cubeLourd->x > 120 && cubeLourd->x + cubeLourd->taille < 270)
+                    && (cubeLourd->y > 475 && cubeLourd->y + cubeLourd->taille < 625));
+    bool moyenOK = ((cubeMoyen->x > 435 && cubeMoyen->x + cubeMoyen->taille < 585)
+                    && (cubeMoyen->y > 475 && cubeMoyen->y + cubeMoyen->taille < 625));
+    bool legerOK = ((cubeLeger->x > 755 && cubeLeger->x + cubeLeger->taille < 905)
+                    && (cubeLeger->y > 475 && cubeLeger->y + cubeLeger->taille < 625));
+
+
+    if (lourdOK && moyenOK && legerOK) {
+        lbl->setText("<h3>Georges a réussi à résoudre l'énigme ! il peut déjà voir la porte s'ouvrir</h3>Arrivera-t-il à s'échapper ? Appuyez à droite pour passer à la page suivante et découvrir la suite de l'histoire!");
+        lbl->show();
+        fondBlanc->show();
+        state = 3;
+    }
+}

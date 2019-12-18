@@ -8,6 +8,7 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
+#include "cube.h"
 
 class MainWindow;
 
@@ -22,6 +23,8 @@ public:
     virtual bool eventFilter(QObject *object, QEvent *ev) override;
     void keyPressEvent(QKeyEvent * event);
     bool checkGoNext();
+    bool detectCollisionCube(Cube* cube, int x, int y);
+    void checkIfPuzzleSolved();
 
     //elements
     MainWindow * mainWindow;
@@ -29,12 +32,24 @@ public:
 private:
     int mCursorX;
     int mCursorY;
+
+    int savedX;
+    int savedY;
+
     QLabel* lbl;
     QGraphicsPixmapItem* fondBlanc;
 
     //etat du jeu
     int state = 0;
     QPixmap backgroundImg;
+
+    Cube* cubeLourd;
+    Cube* cubeMoyen;
+    Cube* cubeLeger;
+
+    QGraphicsPixmapItem* lourdImg;
+    QGraphicsPixmapItem* moyenImg;
+    QGraphicsPixmapItem* legerImg;
 };
 
 #endif // MYGRAPHICSSCENE2_H
