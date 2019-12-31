@@ -3,15 +3,13 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
-#include <QLabel>
 #include <QMouseEvent>
 #include <QMainWindow>
-#include <QGraphicsView>
-#include <QGraphicsPixmapItem>
+#include "mygraphicsscene.h"
 
 class MainWindow;
 
-class MyGraphicsScene1 : public QGraphicsScene
+class MyGraphicsScene1 : public MyGraphicsScene
 {
 public:
     //constructor
@@ -19,22 +17,6 @@ public:
 
     //functions
     bool eventFilter(QObject *object, QEvent *ev);
-    void keyPressEvent(QKeyEvent * event);
-    bool checkGoNext();
-
-    //elements
-    MainWindow * mainWindow;
-
-private:
-    int mCursorX;
-    int mCursorY;
-    QLabel* lbl;
-    bool buttonPressed = false;
-    QGraphicsPixmapItem* fondBlanc;
-
-    //etat du jeu
-    int state = 0;
-    QPixmap backgroundImg;
 };
 
 #endif // MYGRAPHICSSCENE1_H

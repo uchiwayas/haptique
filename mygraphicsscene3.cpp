@@ -2,37 +2,11 @@
 #include "mainwindow.h"
 
 MyGraphicsScene3::MyGraphicsScene3(MainWindow *w) :
-    QGraphicsScene(w),
-    mCursorX(0),
-    mCursorY(0)
+    MyGraphicsScene(w)
 {
-    this->setSceneRect(0,0,1024,768);
-
-    installEventFilter(this);
-    this->mainWindow = w;
     backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene3/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
-
-
-    lbl = new QLabel("", this->mainWindow);
-    lbl->setWordWrap(true);
-    lbl->setFixedWidth(600);
-    lbl->setFixedHeight(75);
-    lbl->showFullScreen();
-    lbl->setAlignment(Qt::AlignCenter);
-    lbl->setMouseTracking(false);
-
-    QPixmap qpixmapFondBlanc("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");
-    fondBlanc = new QGraphicsPixmapItem(qpixmapFondBlanc);
-    this->addItem(fondBlanc);
-
-    //position de texte et fond blanc
-    lbl->setGeometry(mainWindow->width()/2 - lbl->width()/2, 20, 600, 75);
-    fondBlanc->setPos(mainWindow->width()/2 - lbl->width()/2, 20);
-
-    lbl->hide();
-    fondBlanc->hide();
 }
 
 
@@ -43,14 +17,13 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
             if (state == 0) {
                 state = 1;
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene3/1.png");
-                lbl->setText("<h2>La porte est ouverte !!!</h2> <h4>Goerges peut déjà voir la lumière de l'autre coté, il s'approche donc de la sortie...quand tout à coup..</h4>");
+                lbl->setText("<h2>La porte est ouverte !!!</h2> <h4>George peut déjà voir la lumière de l'autre coté, il s'approche donc de la sortie...quand tout à coup..</h4>");
                 lbl->show();
                 fondBlanc->show();
             } else if (state == 1) {
                 state = 2;
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene3/2.png");
-                lbl->setText("<h2>Tout s'éffondre autour de lui et Goerges tombe D: oh nyoo</h4>");
-                fondBlanc->show();
+                lbl->setText("<h2>Tout s'éffondre autour de lui et George tombe D: oh nyoo</h4>");
 
             } else if (state == 2) {
                 state = 3;
@@ -82,19 +55,4 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
     }
     return false;
 }
-
-void MyGraphicsScene3::keyPressEvent(QKeyEvent * event) {
-    if (event->key() == Qt::Key_Escape) {
-        this->mainWindow->close();
-    }
-}
-
-bool MyGraphicsScene3::checkGoNext() {
-    mCursorX = QCursor::pos().x();
-    if (mCursorX > mainWindow->width() - 100) {
-        return true;
-    }
-    return false;
-}
-
 

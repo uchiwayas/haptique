@@ -3,40 +3,10 @@
 #include "mainwindow.h"
 
 MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
-    QGraphicsScene(w),
-    mCursorX(0),
-    mCursorY(0)
+    MyGraphicsScene(w)
 {
-    this->setSceneRect(0,0,1024,768);
-
-    installEventFilter(this);
-    this->mainWindow = w;
-    backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/0.png");
-    this->setBackgroundBrush(QBrush(backgroundImg));
-    this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
-
-
-    lbl = new QLabel("", this->mainWindow);
-    lbl->setWordWrap(true);
-    lbl->setFixedWidth(600);
-    lbl->setFixedHeight(75);
-    lbl->showFullScreen();
-    lbl->setAlignment(Qt::AlignCenter);
-    lbl->setMouseTracking(false);
-
-    QPixmap qpixmapFondBlanc("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");
-    fondBlanc = new QGraphicsPixmapItem(qpixmapFondBlanc);
-    this->addItem(fondBlanc);
-
-    //position de texte et fond blanc
-    lbl->setGeometry(mainWindow->width()/2 - lbl->width()/2, 20, 600, 75);
-    fondBlanc->setPos(mainWindow->width()/2 - lbl->width()/2, 20);
-
-    lbl->hide();
-    fondBlanc->hide();
-
     //cube lourd
-    cubeLourd = new Cube(250, 300, 2);
+    cubeLourd = new Cube(650, 300, 2);
     lourdImg = cubeLourd->cubeImage;
     this->addItem(lourdImg);
     lourdImg->hide();
@@ -50,11 +20,15 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
     moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
 
     //cube leger
-    cubeLeger = new Cube(650, 300, 0);
+    cubeLeger = new Cube(250, 300, 0);
     legerImg = cubeLeger->cubeImage;
     this->addItem(legerImg);
     legerImg->hide();
     legerImg->setPos(cubeLeger->x, cubeLeger->y);
+
+    backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/0.png");
+    this->setBackgroundBrush(QBrush(backgroundImg));
+    this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
 }
 
 bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
@@ -63,7 +37,7 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
         if (checkGoNext()) {
             if (state == 0) {
                 state = 1;
-                lbl->setText("<h3>Georges s'approche de la table pour tenter de résoudre l'énigme</h3>");
+                lbl->setText("<h3>George s'approche de la table pour tenter de résoudre l'énigme</h3>");
                 lbl->show();
                 fondBlanc->show();
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/1.png");
@@ -137,37 +111,30 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
     return false;
 }
 
-void MyGraphicsScene2::keyPressEvent(QKeyEvent * event) {
-    if (event->key() == Qt::Key_Escape) {
-        this->mainWindow->close();
-    }
-}
-
-bool MyGraphicsScene2::checkGoNext() {
-    mCursorX = QCursor::pos().x();
-    if (mCursorX > mainWindow->width() - 100) {
-        return true;
-    }
-    return false;
-}
-
+/*
+    detecte si la souris est dans le cube
+*/
 bool MyGraphicsScene2::detectCollisionCube(Cube* cube, int x, int y) {
     bool dansX = (x > cube->x) && (x < (cube->x + cube->taille));
     bool dansY = (y > cube->y) && (y < (cube->y + cube->taille));
     return dansX && dansY;
 }
 
+/*
+    check si les 3 cubes sont dans les bons emplacements
+    puis passe à l'état 3 si c'est le cas
+*/
 void MyGraphicsScene2::checkIfPuzzleSolved() {
-    bool lourdOK = ((cubeLourd->x > 120 && cubeLourd->x + cubeLourd->taille < 270)
-                    && (cubeLourd->y > 475 && cubeLourd->y + cubeLourd->taille < 625));
+    bool legerOK = ((cubeLeger->x > 120 && cubeLeger->x + cubeLeger->taille < 270)
+                    && (cubeLeger->y > 475 && cubeLeger->y + cubeLeger->taille < 625));
     bool moyenOK = ((cubeMoyen->x > 435 && cubeMoyen->x + cubeMoyen->taille < 585)
                     && (cubeMoyen->y > 475 && cubeMoyen->y + cubeMoyen->taille < 625));
-    bool legerOK = ((cubeLeger->x > 755 && cubeLeger->x + cubeLeger->taille < 905)
-                    && (cubeLeger->y > 475 && cubeLeger->y + cubeLeger->taille < 625));
+    bool lourdOK = ((cubeLourd->x > 755 && cubeLourd->x + cubeLourd->taille < 905)
+                    && (cubeLourd->y > 475 && cubeLourd->y + cubeLourd->taille < 625));
 
 
     if (lourdOK && moyenOK && legerOK) {
-        lbl->setText("<h3>Georges a réussi à résoudre l'énigme ! il peut déjà voir la porte s'ouvrir</h3>Arrivera-t-il à s'échapper ? Appuyez à droite pour passer à la page suivante et découvrir la suite de l'histoire!");
+        lbl->setText("<h3>George a réussi à résoudre l'énigme ! il peut déjà voir la porte s'ouvrir</h3>Arrivera-t-il à s'échapper ? Appuyez à droite pour passer à la page suivante et découvrir la suite de l'histoire!");
         lbl->show();
         fondBlanc->show();
         state = 3;

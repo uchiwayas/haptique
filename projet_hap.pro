@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     mygraphicsscene1.cpp \
     mygraphicsscene2.cpp \
     cube.cpp \
-    mygraphicsscene3.cpp
+    mygraphicsscene3.cpp \
+    mygraphicsscene.cpp
 
 HEADERS  += mainwindow.h \
     mygraphicsscene1.h \
     mygraphicsscene2.h \
     cube.h \
-    mygraphicsscene3.h
+    mygraphicsscene3.h \
+    mygraphicsscene.h
 
 FORMS    += mainwindow.ui
