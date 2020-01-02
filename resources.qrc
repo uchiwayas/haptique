@@ -7,7 +7,6 @@
         <file>img/scene1/1.png</file>
         <file>img/scene1/2.png</file>
         <file>img/scene1/3.png</file>
-        <file>img/scene1/3-old.png</file>
         <file>img/scene1/4.png</file>
         <file>img/scene2/0.png</file>
         <file>img/scene2/1.png</file>
@@ -20,4 +19,5 @@
         <file>img/scene3/5.png</file>
         <file>img/scene3/6.png</file>
     </qresource>
+    <qresource prefix="/sons"/>
 </RCC>

@@ -7,21 +7,20 @@ MyGraphicsScene::MyGraphicsScene(MainWindow *w, GestionHaptique *mHap) :
     mCursorY(0),
     mHaptique(mHap)
 {
-    this->setSceneRect(0,0,1024,768);
+    this->setSceneRect(0,0,1024,768);       //taille de l'écran
 
-    installEventFilter(this);
-    this->mainWindow = w;
+    installEventFilter(this);               //gestion des events
+    this->mainWindow = w;                   //init de la main window
 
-
-    lbl = new QLabel("", this->mainWindow);
-    lbl->setWordWrap(true);
-    lbl->setFixedWidth(600);
-    lbl->setFixedHeight(75);
-    lbl->showFullScreen();
-    lbl->setAlignment(Qt::AlignCenter);
+    lbl = new QLabel("", this->mainWindow); //init label
+    lbl->setWordWrap(true);                 //retour a la ligne activé
+    lbl->setFixedWidth(600);                //largeur max label
+    lbl->setFixedHeight(75);                //hauteur max label
+    lbl->showFullScreen();                  //fullscreen du label
+    lbl->setAlignment(Qt::AlignCenter);     //label centré
     lbl->setMouseTracking(false);
 
-    QPixmap qpixmapFondBlanc("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");
+    QPixmap qpixmapFondBlanc("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");   //init fond blanc
     fondBlanc = new QGraphicsPixmapItem(qpixmapFondBlanc);
     this->addItem(fondBlanc);
 
@@ -33,6 +32,11 @@ MyGraphicsScene::MyGraphicsScene(MainWindow *w, GestionHaptique *mHap) :
     fondBlanc->hide();
 }
 
+/**
+ * @brief MyGraphicsScene::checkGoNext
+ * check si on doit passer a la page suivante
+ * @return true si on doit passer à la page suivante, false sinon
+ */
 bool MyGraphicsScene::checkGoNext() {
     mCursorX = QCursor::pos().x();
     if (mCursorX > mainWindow->width() - 150) {
@@ -41,6 +45,11 @@ bool MyGraphicsScene::checkGoNext() {
     return false;
 }
 
+/**
+ * @brief MyGraphicsScene::keyPressEvent
+ * Gère les events clavier, echap = quitter
+ * @param event
+ */
 void MyGraphicsScene::keyPressEvent(QKeyEvent * event) {
     if (event->key() == Qt::Key_Escape) {
         this->mainWindow->close();

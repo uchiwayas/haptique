@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     installEventFilter(this);
 
-    this->showFullScreen();
+    this->showFullScreen();     //affichage en plein écran
     //this->move(QPoint(0,0));
 
     ui->graphicsView->setMouseTracking(true);
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
-    scene = new MyGraphicsScene1(this, new GestionHaptique(this));
+    scene = new MyGraphicsScene1(this, new GestionHaptique(this));     //lancement du
     this->SetScene(scene);
 }
 

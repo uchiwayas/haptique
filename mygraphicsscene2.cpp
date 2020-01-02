@@ -2,6 +2,12 @@
 #include "mygraphicsscene3.h"
 #include "mainwindow.h"
 
+/**
+ * @brief MyGraphicsScene2::MyGraphicsScene2
+ * Constructeur
+ * @param w : window
+ * @param mHap : gestion haptique
+ */
 MyGraphicsScene2::MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap) :
     MyGraphicsScene(w, mHap)
 {
@@ -26,27 +32,36 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap) :
     legerImg->hide();
     legerImg->setPos(cubeLeger->x, cubeLeger->y);
 
+    //premier background (chapitre 2)
     backgroundImg = QPixmap(":/images/img/scene2/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
 }
 
+/**
+ * @brief MyGraphicsScene2::eventFilter.
+ * Gère les evenements souris
+ * @param object
+ * @param ev
+ */
 bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
 {
+    //si on appuie sur le bouton souris
     if (ev->type() == QEvent::GraphicsSceneMousePress && state != 2) {
+        //si on doit passer à la page suivante
         if (checkGoNext()) {
-            if (state == 0) {
+            if (state == 0) { //page 1
                 state = 1;
                 lbl->setText("<h3>George s'approche de la table pour tenter de résoudre l'énigme</h3>");
                 lbl->show();
                 fondBlanc->show();
                 backgroundImg = QPixmap(":/images/img/scene2/1.png");
-            } else if (state == 1) {
+            } else if (state == 1) { //page 2
                 state = 2;
                 lbl->hide();
                 fondBlanc->hide();
                 backgroundImg = QPixmap(":/images/img/scene2/2.png");
-            } else if (state == 3) {
+            } else if (state == 3) { //page 3
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
                 mainWindow->SetScene(new MyGraphicsScene3(mainWindow, this->mHaptique));
@@ -67,21 +82,21 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
         legerImg->show();
 
         if (ev->type() == QEvent::GraphicsSceneMousePress) {                //selection du cube
-            if (detectCollisionCube(cubeLourd, mCursorX, mCursorY)) {
+            if (detectCollisionCube(cubeLourd, mCursorX, mCursorY)) {       //si on appuie sur le cube lourd
                 savedX = mCursorX - cubeLourd->x;
                 savedY = mCursorX - cubeLourd->x;
                 cubeLourd->clicked = true;
                 mHaptique->mFriction10k->Start();
                 mHaptique->mInertie10k->Start();
                 qDebug() << "dans cube lourd";
-            } else if (detectCollisionCube(cubeMoyen, mCursorX, mCursorY)) {
+            } else if (detectCollisionCube(cubeMoyen, mCursorX, mCursorY)) { //si on appuie sur le cube moyen
                 savedX = mCursorX - cubeMoyen->x;
                 savedY = mCursorX - cubeMoyen->x;
                 cubeMoyen->clicked = true;
                 mHaptique->mFriction5k->Start();
                 mHaptique->mInertie5k->Start();
                 qDebug() << "dans cube moyen";
-            } else if (detectCollisionCube(cubeLeger, mCursorX, mCursorY)) {
+            } else if (detectCollisionCube(cubeLeger, mCursorX, mCursorY)) { //si on appuie sur le cube leger
                 savedX = mCursorX - cubeLeger->x;
                 savedY = mCursorX - cubeLeger->x;
                 cubeLeger->clicked = true;
@@ -89,28 +104,32 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
             }
 
         } else if (ev->type() == QEvent::GraphicsSceneMouseRelease) {       //déselection du cube
+            /* clicked passe a false (clicked servait à savoir quel cube est sélectionné
+            pour le bouger quand on reçoit un event de type mouse move */
             cubeLourd->clicked = false;
             cubeMoyen->clicked = false;
             cubeLeger->clicked = false;
 
+            //arrêt des effets haptiques de poids
             mHaptique->mFriction10k->Stop();
             mHaptique->mFriction5k->Stop();
 
             mHaptique->mInertie10k->Stop();
             mHaptique->mInertie5k->Stop();
 
+            //check si on a résolu le puzzle
             checkIfPuzzleSolved();
 
-        } else if (ev->type() == QMouseEvent::GraphicsSceneMouseMove){      //movement du cube
-            if (cubeLourd->clicked) {
+        } else if (ev->type() == QMouseEvent::GraphicsSceneMouseMove){      //si la souris bouge
+            if (cubeLourd->clicked) {                           //mouvement cube lourd
                 cubeLourd->x = mCursorX - savedX;
                 cubeLourd->y = mCursorY - savedY;
                 lourdImg->setPos(cubeLourd->x, cubeLourd->y);
-            } else if (cubeMoyen->clicked) {
+            } else if (cubeMoyen->clicked) {                    //mouvement cube moyen
                 cubeMoyen->x = mCursorX - savedX;
                 cubeMoyen->y = mCursorY - savedY;
                 moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
-            } else if (cubeLeger->clicked) {
+            } else if (cubeLeger->clicked) {                     //mouvement cube léger
                 cubeLeger->x = mCursorX - savedX;
                 cubeLeger->y = mCursorY - savedY;
                 legerImg->setPos(cubeLeger->x, cubeLeger->y);
@@ -120,19 +139,25 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
     return false;
 }
 
-/*
-    detecte si la souris est dans le cube
-*/
+/**
+ * @brief MyGraphicsScene2::detectCollisionCube
+ * Detecte si la souris est dans le cube
+ * @param cube
+ * @param x : pos x de la souris
+ * @param y : pos y de la souris
+ * @return true si la souris est dans le cube, false sinon
+ */
 bool MyGraphicsScene2::detectCollisionCube(Cube* cube, int x, int y) {
     bool dansX = (x > cube->x) && (x < (cube->x + cube->taille));
     bool dansY = (y > cube->y) && (y < (cube->y + cube->taille));
     return dansX && dansY;
 }
 
-/*
-    check si les 3 cubes sont dans les bons emplacements
-    puis passe à l'état 3 si c'est le cas
-*/
+/**
+ * @brief MyGraphicsScene2::checkIfPuzzleSolved
+ * check si les 3 cubes sont dans les bons emplacements
+ *  puis passe à l'état 3 si c'est le cas
+ */
 void MyGraphicsScene2::checkIfPuzzleSolved() {
     bool legerOK = ((cubeLeger->x > 120 && cubeLeger->x + cubeLeger->taille < 270)
                     && (cubeLeger->y > 475 && cubeLeger->y + cubeLeger->taille < 625));

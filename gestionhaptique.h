@@ -25,7 +25,7 @@ public:
     CImmInertia *mInertie5k;
     CImmEnclosure *mThrophee;
     CImmTexture *mTextureRoche;
-    CImmEnclosure *mMirroir;
+    CImmEnclosure *mPaint;
     CImmPeriodic *mTremblement;
     GestionHaptique(QMainWindow * fen);
     ~GestionHaptique();
