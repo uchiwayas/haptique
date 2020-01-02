@@ -14,7 +14,10 @@ public:
     MyGraphicsScene3(MainWindow *w, GestionHaptique *mHap);
 
     //functions
-    bool eventFilter(QObject *object, QEvent *ev);
+    bool eventFilter(QObject *object, QEvent *ev); //event souris
+
+    //vars
+    int timer = 200;
 };
 
 #endif // MYGRAPHICSSCENE3_H

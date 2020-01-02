@@ -4,17 +4,20 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 
+/**
+ * @brief The Cube class
+ * Sert à créer les trois cubes du chapitre 2
+ */
 class Cube
 {
 public:
     static const int taille = 100;
 
     Cube();
-    Cube(int _x, int _y, int _poids);
+    Cube(int _x, int _y);
     void Show(QGraphicsScene scene);
     QGraphicsPixmapItem* cubeImage;
 
-    int poids;
     int x;
     int y;
     bool clicked = false;

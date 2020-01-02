@@ -6,27 +6,27 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap) :
     MyGraphicsScene(w, mHap)
 {
     //cube lourd
-    cubeLourd = new Cube(450, 300, 2);
+    cubeLourd = new Cube(450, 300);
     lourdImg = cubeLourd->cubeImage;
     this->addItem(lourdImg);
     lourdImg->hide();
     lourdImg->setPos(cubeLourd->x, cubeLourd->y);
 
     //cube moyen
-    cubeMoyen = new Cube(250, 300, 1);
+    cubeMoyen = new Cube(250, 300);
     moyenImg = cubeMoyen->cubeImage;
     this->addItem(moyenImg);
     moyenImg->hide();
     moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
 
     //cube leger
-    cubeLeger = new Cube(650, 300, 0);
+    cubeLeger = new Cube(650, 300);
     legerImg = cubeLeger->cubeImage;
     this->addItem(legerImg);
     legerImg->hide();
     legerImg->setPos(cubeLeger->x, cubeLeger->y);
 
-    backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/0.png");
+    backgroundImg = QPixmap(":/images/img/scene2/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
 }
@@ -40,12 +40,12 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
                 lbl->setText("<h3>George s'approche de la table pour tenter de résoudre l'énigme</h3>");
                 lbl->show();
                 fondBlanc->show();
-                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/1.png");
+                backgroundImg = QPixmap(":/images/img/scene2/1.png");
             } else if (state == 1) {
                 state = 2;
                 lbl->hide();
                 fondBlanc->hide();
-                backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/2.png");
+                backgroundImg = QPixmap(":/images/img/scene2/2.png");
             } else if (state == 3) {
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
@@ -60,7 +60,6 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
         mCursorY = QCursor::pos().y();
 
         //gestion des cubes
-        //mHaptique->mSlope->Start();
 
         //affichage
         lourdImg->show();

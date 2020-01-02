@@ -16,7 +16,8 @@ public:
     MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap);
 
     //functions
-    bool eventFilter(QObject *object, QEvent *ev);
+    bool eventFilter(QObject *object, QEvent *ev); //event souris
+
 };
 
 #endif // MYGRAPHICSSCENE1_H

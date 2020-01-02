@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>img/cube.png</file>
+        <file>img/fond.png</file>
+        <file>img/scene1/couverture.png</file>
+        <file>img/scene1/0.png</file>
+        <file>img/scene1/1.png</file>
+        <file>img/scene1/2.png</file>
+        <file>img/scene1/3.png</file>
+        <file>img/scene1/3-old.png</file>
+        <file>img/scene1/4.png</file>
+        <file>img/scene2/0.png</file>
+        <file>img/scene2/1.png</file>
+        <file>img/scene2/2.png</file>
+        <file>img/scene3/0.png</file>
+        <file>img/scene3/1.png</file>
+        <file>img/scene3/2.png</file>
+        <file>img/scene3/3.png</file>
+        <file>img/scene3/4.png</file>
+        <file>img/scene3/5.png</file>
+        <file>img/scene3/6.png</file>
+    </qresource>
+</RCC>

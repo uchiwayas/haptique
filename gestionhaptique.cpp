@@ -44,13 +44,6 @@ GestionHaptique::GestionHaptique(QMainWindow * fen): mFenetre(fen)
         delete mInertie5k;
         mInertie5k = NULL; }
 
-        mBosse = new CImmGrid();
-        if (!mBosse->InitializeFromProject(*mProjet, "Bosse", mSouris,
-        IMM_PARAM_NODOWNLOAD))
-        { qDebug()<<"===>Erreur chargement mBosse ";
-        delete mBosse;
-        mBosse = NULL; }
-
         mTextureRoche = new CImmTexture();
         if (!mTextureRoche->InitializeFromProject(*mProjet, "TextureRoche", mSouris,
         IMM_PARAM_NODOWNLOAD))
@@ -65,6 +58,19 @@ GestionHaptique::GestionHaptique(QMainWindow * fen): mFenetre(fen)
         delete mMirroir;
         mMirroir = NULL; }
 
+        mThrophee = new CImmEnclosure();
+        if (!mThrophee->InitializeFromProject(*mProjet, "Throphee", mSouris,
+        IMM_PARAM_NODOWNLOAD))
+        { qDebug()<<"===>Erreur chargement mThrophee ";
+        delete mThrophee;
+        mThrophee = NULL; }
+
+        mTremblement = new CImmPeriodic();
+        if (!mTremblement->InitializeFromProject(*mProjet, "Tremblement", mSouris,
+        IMM_PARAM_NODOWNLOAD))
+        { qDebug()<<"===>Erreur chargement mTremblement ";
+        delete mTremblement;
+        mTremblement = NULL; }
     }
     else
     {

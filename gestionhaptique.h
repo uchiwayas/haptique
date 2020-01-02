@@ -9,6 +9,10 @@
 #include <QApplication>
 class QMainWindow;
 
+/**
+ * @brief The GestionHaptique class
+ * Classe pour la gestion haptique et sonore
+ */
 class GestionHaptique
 {
 public:
@@ -19,9 +23,10 @@ public:
     CImmFriction *mFriction5k;
     CImmInertia *mInertie10k;
     CImmInertia *mInertie5k;
-    CImmGrid *mBosse;
+    CImmEnclosure *mThrophee;
     CImmTexture *mTextureRoche;
     CImmEnclosure *mMirroir;
+    CImmPeriodic *mTremblement;
     GestionHaptique(QMainWindow * fen);
     ~GestionHaptique();
     CImmProject *GetProjet() const;
