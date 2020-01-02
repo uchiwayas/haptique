@@ -13,7 +13,7 @@ class MyGraphicsScene1 : public MyGraphicsScene
 {
 public:
     //constructor
-    MyGraphicsScene1(MainWindow *w);
+    MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap);
 
     //functions
     bool eventFilter(QObject *object, QEvent *ev);

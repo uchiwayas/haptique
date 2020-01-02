@@ -1,8 +1,8 @@
 #include "mygraphicsscene3.h"
 #include "mainwindow.h"
 
-MyGraphicsScene3::MyGraphicsScene3(MainWindow *w) :
-    MyGraphicsScene(w)
+MyGraphicsScene3::MyGraphicsScene3(MainWindow *w, GestionHaptique *mHap) :
+    MyGraphicsScene(w, mHap)
 {
     backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene3/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));

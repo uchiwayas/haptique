@@ -1,10 +1,11 @@
 #include "mygraphicsscene.h"
 #include "mainwindow.h"
 
-MyGraphicsScene::MyGraphicsScene(MainWindow *w) :
+MyGraphicsScene::MyGraphicsScene(MainWindow *w, GestionHaptique *mHap) :
     QGraphicsScene(w),
     mCursorX(0),
-    mCursorY(0)
+    mCursorY(0),
+    mHaptique(mHap)
 {
     this->setSceneRect(0,0,1024,768);
 

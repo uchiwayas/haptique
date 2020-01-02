@@ -2,8 +2,8 @@
 #include "mygraphicsscene2.h"
 #include "mainwindow.h"
 
-MyGraphicsScene1::MyGraphicsScene1(MainWindow *w) :
-    MyGraphicsScene(w)
+MyGraphicsScene1::MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap) :
+    MyGraphicsScene(w, mHap)
 {
     backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/couverture.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
@@ -35,8 +35,10 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
                 state = 4;
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/3.png");
                 lbl->setText("<h2>il trouve des trucs</h2>");
+                mHaptique->mMirroir->Start();
 
             } else if (state == 4) {
+                mHaptique->mMirroir->Stop();
                 state = 5;
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene1/4.png");
                 lbl->setText("<h2>Au loin il voit une porte de sortie, qui semble être gardée par une sorte de puzzle</h2>");
@@ -44,7 +46,7 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
             } else if (state == 5) {
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
-                mainWindow->SetScene(new MyGraphicsScene2(mainWindow));
+                mainWindow->SetScene(new MyGraphicsScene2(mainWindow, this->mHaptique));
 
             }
             this->setBackgroundBrush(QBrush(backgroundImg));

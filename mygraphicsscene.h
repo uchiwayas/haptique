@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QLabel>
 #include <QGraphicsPixmapItem>
+#include <gestionhaptique.h>
 
 class MainWindow;
 
@@ -10,7 +11,7 @@ class MyGraphicsScene : public QGraphicsScene
 {
 public:
     //constructor
-    MyGraphicsScene(MainWindow *w);
+    MyGraphicsScene(MainWindow *w, GestionHaptique *mHap);
 
     //functions
     bool checkGoNext();
@@ -26,6 +27,9 @@ public:
     //etat du jeu
     int state = 0;
     QPixmap backgroundImg;
+
+    //haptique
+    GestionHaptique *mHaptique;
 };
 
 #endif // MYGRAPHICSSCENE_H

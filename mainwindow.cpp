@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
-    scene = new MyGraphicsScene1(this);
+    scene = new MyGraphicsScene1(this, new GestionHaptique(this));
     this->SetScene(scene);
 }
 

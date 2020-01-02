@@ -2,25 +2,25 @@
 #include "mygraphicsscene3.h"
 #include "mainwindow.h"
 
-MyGraphicsScene2::MyGraphicsScene2(MainWindow *w) :
-    MyGraphicsScene(w)
+MyGraphicsScene2::MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap) :
+    MyGraphicsScene(w, mHap)
 {
     //cube lourd
-    cubeLourd = new Cube(650, 300, 2);
+    cubeLourd = new Cube(450, 300, 2);
     lourdImg = cubeLourd->cubeImage;
     this->addItem(lourdImg);
     lourdImg->hide();
     lourdImg->setPos(cubeLourd->x, cubeLourd->y);
 
     //cube moyen
-    cubeMoyen = new Cube(450, 300, 1);
+    cubeMoyen = new Cube(250, 300, 1);
     moyenImg = cubeMoyen->cubeImage;
     this->addItem(moyenImg);
     moyenImg->hide();
     moyenImg->setPos(cubeMoyen->x, cubeMoyen->y);
 
     //cube leger
-    cubeLeger = new Cube(250, 300, 0);
+    cubeLeger = new Cube(650, 300, 0);
     legerImg = cubeLeger->cubeImage;
     this->addItem(legerImg);
     legerImg->hide();
@@ -46,11 +46,10 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
                 lbl->hide();
                 fondBlanc->hide();
                 backgroundImg = QPixmap("C:/Users/M2IHM/Documents/projet_hap/img/scene2/2.png");
-
             } else if (state == 3) {
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
-                mainWindow->SetScene(new MyGraphicsScene3(mainWindow));
+                mainWindow->SetScene(new MyGraphicsScene3(mainWindow, this->mHaptique));
             }
             this->setBackgroundBrush(QBrush(backgroundImg));
             this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
@@ -61,6 +60,7 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
         mCursorY = QCursor::pos().y();
 
         //gestion des cubes
+        //mHaptique->mSlope->Start();
 
         //affichage
         lourdImg->show();
@@ -72,11 +72,15 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
                 savedX = mCursorX - cubeLourd->x;
                 savedY = mCursorX - cubeLourd->x;
                 cubeLourd->clicked = true;
+                mHaptique->mFriction10k->Start();
+                mHaptique->mInertie10k->Start();
                 qDebug() << "dans cube lourd";
             } else if (detectCollisionCube(cubeMoyen, mCursorX, mCursorY)) {
                 savedX = mCursorX - cubeMoyen->x;
                 savedY = mCursorX - cubeMoyen->x;
                 cubeMoyen->clicked = true;
+                mHaptique->mFriction5k->Start();
+                mHaptique->mInertie5k->Start();
                 qDebug() << "dans cube moyen";
             } else if (detectCollisionCube(cubeLeger, mCursorX, mCursorY)) {
                 savedX = mCursorX - cubeLeger->x;
@@ -89,6 +93,12 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
             cubeLourd->clicked = false;
             cubeMoyen->clicked = false;
             cubeLeger->clicked = false;
+
+            mHaptique->mFriction10k->Stop();
+            mHaptique->mFriction5k->Stop();
+
+            mHaptique->mInertie10k->Stop();
+            mHaptique->mInertie5k->Stop();
 
             checkIfPuzzleSolved();
 

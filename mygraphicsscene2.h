@@ -12,7 +12,7 @@ class MyGraphicsScene2 : public MyGraphicsScene
 {
 public:
     //constructor
-    MyGraphicsScene2(MainWindow *w);
+    MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap);
 
     //functions
     virtual bool eventFilter(QObject *object, QEvent *ev) override;
