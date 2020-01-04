@@ -7,6 +7,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += multimedia
 
 TARGET = projet_hap
 TEMPLATE = app
@@ -22,7 +23,8 @@ SOURCES += main.cpp\
     cube.cpp \
     mygraphicsscene3.cpp \
     mygraphicsscene.cpp \
-    gestionhaptique.cpp
+    gestionhaptique.cpp \
+    sonmanager.cpp
 
 HEADERS  += mainwindow.h \
     mygraphicsscene1.h \
@@ -30,9 +32,11 @@ HEADERS  += mainwindow.h \
     cube.h \
     mygraphicsscene3.h \
     mygraphicsscene.h \
-    gestionhaptique.h
+    gestionhaptique.h \
+    sonmanager.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    resources.qrc
+    sons.qrc \
+    images.qrc

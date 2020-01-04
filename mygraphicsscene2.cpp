@@ -1,6 +1,7 @@
 #include "mygraphicsscene2.h"
 #include "mygraphicsscene3.h"
 #include "mainwindow.h"
+#include "sonmanager.h"
 
 /**
  * @brief MyGraphicsScene2::MyGraphicsScene2
@@ -36,6 +37,8 @@ MyGraphicsScene2::MyGraphicsScene2(MainWindow *w, GestionHaptique *mHap) :
     backgroundImg = QPixmap(":/images/img/scene2/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
+
+    SonManager::play(SonManager::CHAPITRE_2);
 }
 
 /**
@@ -52,6 +55,8 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
         if (checkGoNext()) {
             if (state == 0) { //page 1
                 state = 1;
+                SonManager::clearAllSounds();
+                SonManager::playBackground();
                 lbl->setText("<h3>George s'approche de la table pour tenter de résoudre l'énigme</h3>");
                 lbl->show();
                 fondBlanc->show();
@@ -64,6 +69,8 @@ bool MyGraphicsScene2::eventFilter(QObject *object, QEvent *ev)
             } else if (state == 3) { //page 3
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
+                SonManager::clearAllSounds();
+                SonManager::pauseBackground();
                 mainWindow->SetScene(new MyGraphicsScene3(mainWindow, this->mHaptique));
             }
             this->setBackgroundBrush(QBrush(backgroundImg));
@@ -172,5 +179,6 @@ void MyGraphicsScene2::checkIfPuzzleSolved() {
         lbl->show();
         fondBlanc->show();
         state = 3;
+        SonManager::play(SonManager::PORTE);
     }
 }

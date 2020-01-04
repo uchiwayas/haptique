@@ -1,6 +1,7 @@
 #include "mygraphicsscene1.h"
 #include "mygraphicsscene2.h"
 #include "mainwindow.h"
+#include "sonmanager.h"
 
 /**
  * @brief MyGraphicsScene1::MyGraphicsScene1
@@ -12,9 +13,11 @@ MyGraphicsScene1::MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap) :
     MyGraphicsScene(w, mHap)
 {
     //premier background (chapitre 1)
-    backgroundImg = QPixmap(":/images/img/scene1/couverture.png");
+    backgroundImg = QPixmap(":/images/couverture");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
+
+    SonManager::play(SonManager::DEBUT);
 }
 
 /**
@@ -29,12 +32,16 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
         if (checkGoNext()) {       //si on doit passer à la page suivante
             if (state == 0) {      //page 1
                 state = 1;
+                SonManager::clearAllSounds();
+                SonManager::play(SonManager::CHAPITRE_1);
                 backgroundImg = QPixmap(":/images/img/scene1/0.png");
                 lbl->hide();
                 fondBlanc->hide();
             }
             else if (state == 1) { //page 2
                 state = 2;
+                SonManager::clearAllSounds();
+                SonManager::playBackground();
                 backgroundImg = QPixmap(":/images/img/scene1/1.png");
                 lbl->setText("<h2>\"Mais...Où suis-je ?\"</h2>");
                 lbl->show();
@@ -62,6 +69,7 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
             } else if (state == 5) { //page 6
                 lbl->hide();
                 qDebug() << "passer a la prochaine scene";
+                SonManager::pauseBackground();
                 //passage à la scene 2
                 mainWindow->SetScene(new MyGraphicsScene2(mainWindow, this->mHaptique));
 

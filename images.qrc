@@ -2,7 +2,7 @@
     <qresource prefix="/images">
         <file>img/cube.png</file>
         <file>img/fond.png</file>
-        <file>img/scene1/couverture.png</file>
+        <file alias="couverture">img/scene1/couverture.png</file>
         <file>img/scene1/0.png</file>
         <file>img/scene1/1.png</file>
         <file>img/scene1/2.png</file>
@@ -19,5 +19,4 @@
         <file>img/scene3/5.png</file>
         <file>img/scene3/6.png</file>
     </qresource>
-    <qresource prefix="/sons"/>
 </RCC>

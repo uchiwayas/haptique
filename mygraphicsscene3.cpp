@@ -1,5 +1,6 @@
 #include "mygraphicsscene3.h"
 #include "mainwindow.h"
+#include "sonmanager.h"
 
 /**
  * @brief MyGraphicsScene3::MyGraphicsScene3
@@ -13,6 +14,7 @@ MyGraphicsScene3::MyGraphicsScene3(MainWindow *w, GestionHaptique *mHap) :
     backgroundImg = QPixmap(":/images/img/scene3/0.png");
     this->setBackgroundBrush(QBrush(backgroundImg));
     this->setBackgroundBrush(QBrush(backgroundImg.scaled(this->mainWindow->width(), this->mainWindow->height(), Qt::IgnoreAspectRatio)));
+    SonManager::play(SonManager::CHAPITRE_3);
 }
 
 /**
@@ -27,6 +29,7 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
         if (checkGoNext()) {                                //si on doit passer à la page suivante
             if (state == 0) {  //page 1
                 state = 1;
+                SonManager::clearAllSounds();
                 backgroundImg = QPixmap(":/images/img/scene3/1.png");
                 lbl->setText("<h2>La porte est ouverte !!!</h2> <h4>George peut déjà voir la lumière de l'autre coté, il s'approche donc de la sortie...quand tout à coup..</h4>");
                 lbl->show();
@@ -34,12 +37,16 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
 
             } else if (state == 1) {   //page 2
                 state = 2;
+                SonManager::stopBackground();
                 backgroundImg = QPixmap(":/images/img/scene3/2.png");
-                lbl->setText("<h2>Tout s'éffondre autour de lui et George tombe D: oh nyoo</h4>");
+                lbl->setText("<h2>Tout s'éffondre autour de lui et George tombe D: oh nyoo</h2>");
+                SonManager::play(SonManager::EFFONDREMENT);
+                SonManager::play(SonManager::PANIC);
                 mHaptique->mTremblement->Start();
 
             } else if (state == 2) {    //page 3
                 state = 3;
+                SonManager::clearAllSounds();
                 backgroundImg = QPixmap(":/images/img/scene3/3.png");
                 lbl->hide();
                 fondBlanc->hide();
@@ -47,6 +54,7 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
 
             } else if (state == 3) {    //page 4
                 state = 4;
+                SonManager::play(SonManager::REVEIL);
                 backgroundImg = QPixmap(":/images/img/scene3/4.png");
                 lbl->setText("<h2>Au loin il voit une porte de sortie, qui semble être gardée par une sorte de puzzle</h2>");
 
@@ -59,6 +67,8 @@ bool MyGraphicsScene3::eventFilter(QObject *object, QEvent *ev)
 
             } else if (state == 5) {    //page 6
                state = 6;
+               SonManager::clearAllSounds();
+               SonManager::play(SonManager::END);
                backgroundImg = QPixmap(":/images/img/scene3/6.png");
                lbl->hide();
                fondBlanc->hide();

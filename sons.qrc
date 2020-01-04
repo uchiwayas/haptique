@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/sons">
+        <file>sons/ambiant_short.mp3</file>
+        <file>sons/chap1.mp3</file>
+        <file>sons/chap2.mp3</file>
+        <file>sons/chap3.mp3</file>
+        <file>sons/début.mp3</file>
+        <file>sons/effondrement.mp3</file>
+        <file>sons/end.mp3</file>
+        <file>sons/panic.mp3</file>
+        <file>sons/porte.mp3</file>
+        <file>sons/reveil.mp3</file>
+    </qresource>
+</RCC>
