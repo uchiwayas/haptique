@@ -68,6 +68,7 @@ void SonManager::play(const int &i)
     toAdd->play();
 }
 
+//Just to re-commit
 void SonManager::clearAllSounds(){
     for(QMediaPlayer * p : getInstance()->sounds)
     {
