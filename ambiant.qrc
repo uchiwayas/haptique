@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ambiant">
+        <file>sons/ambiant_short.mp3</file>
+    </qresource>
+</RCC>

@@ -1,4 +1,30 @@
 #include "gestionhaptique.h"
+#include "QDebug"
+
+GestionHaptique* GestionHaptique::instance = NULL;
+
+GestionHaptique* GestionHaptique::getInstance(QMainWindow * fen){
+    if(instance == NULL) instance = new GestionHaptique(fen);
+    return instance;
+}
+
+void GestionHaptique::killInstance(){
+    delete instance;
+    instance = NULL;
+}
+
+GestionHaptique::~GestionHaptique(){
+    if(mTremblement) delete mTremblement;
+    if(mPaint) delete mPaint;
+    if(mTextureRoche) delete mTextureRoche;
+    if(mThrophee) delete mThrophee;
+    if(mInertie5k) delete mInertie5k;
+    if(mInertie10k) delete mInertie10k;
+    if(mFriction5k) delete mFriction5k;
+    if(mFriction10k) delete mFriction10k;
+    if(mProjet) delete mProjet;
+    if(mSouris) delete mSouris;
+}
 
 GestionHaptique::GestionHaptique(QMainWindow * fen): mFenetre(fen)
 {

@@ -38,5 +38,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    sons.qrc \
-    images.qrc
+    images.qrc \
+    ambiant.qrc \
+    sons.qrc

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "sonmanager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
-    scene = new MyGraphicsScene1(this, new GestionHaptique(this));     //lancement du
+    scene = new MyGraphicsScene1(this, GestionHaptique::getInstance(this));     //lancement du
     this->SetScene(scene);
 }
 
@@ -27,4 +28,6 @@ void MainWindow::SetScene(QGraphicsScene *scene) {
 MainWindow::~MainWindow()
 {
     delete ui;
+    SonManager::killManager();
+    GestionHaptique::killInstance();
 }

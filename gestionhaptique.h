@@ -16,6 +16,13 @@ class QMainWindow;
 class GestionHaptique
 {
 public:
+    static GestionHaptique* getInstance(QMainWindow*);
+    static void killInstance();
+private:
+    static GestionHaptique* instance;
+    GestionHaptique(QMainWindow * fen);
+    ~GestionHaptique();
+public:
     QMainWindow *mFenetre;
     CImmMouse *mSouris;
     CImmProject *mProjet;
@@ -27,8 +34,6 @@ public:
     CImmTexture *mTextureRoche;
     CImmEnclosure *mPaint;
     CImmPeriodic *mTremblement;
-    GestionHaptique(QMainWindow * fen);
-    ~GestionHaptique();
     CImmProject *GetProjet() const;
 };
 

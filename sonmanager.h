@@ -6,7 +6,7 @@
 class SonManager
 {
 private:
-    static const char* types[];
+    static const char* sons[];
     static SonManager * instance;
 
     SonManager();
@@ -16,7 +16,12 @@ private:
     QMediaPlayer* playerBackground;
 
 public:
-    enum {DEBUT = 0, AMBIANT, CHAPITRE_1, CHAPITRE_2, CHAPITRE_3, EFFONDREMENT, END, PANIC, PORTE, REVEIL};
+    enum {DEBUT = 0, AMBIANT,
+          CHAPITRE_1, CHAPITRE_2,
+          CHAPITRE_3, EFFONDREMENT,
+          END, PANIC,
+          PORTE, REVEIL,
+          HEAVEN, BIRD};
 
 
     static SonManager* getInstance();

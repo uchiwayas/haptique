@@ -54,7 +54,7 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
             } else if (state == 3) { //page 4
                 state = 4;
                 backgroundImg = QPixmap(":/images/img/scene1/3.png");
-                lbl->setText("<h2>il trouve des trucs</h2>");
+                lbl->setText("<h2>Il aperçoit des objects mis en évidences et il les touches !</h2>");
                 mHaptique->mPaint->Start();
                 mHaptique->mThrophee->Start();
 
@@ -72,7 +72,6 @@ bool MyGraphicsScene1::eventFilter(QObject *object, QEvent *ev)
                 SonManager::pauseBackground();
                 //passage à la scene 2
                 mainWindow->SetScene(new MyGraphicsScene2(mainWindow, this->mHaptique));
-
             }
             //après le mousepress on change de background pour passer à la page suivante
             this->setBackgroundBrush(QBrush(backgroundImg));
