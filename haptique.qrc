@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/haptique">
+        <file>friction10k.ifr</file>
+    </qresource>
+</RCC>

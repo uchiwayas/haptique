@@ -20,7 +20,7 @@ MyGraphicsScene::MyGraphicsScene(MainWindow *w, GestionHaptique *mHap) :
     lbl->setAlignment(Qt::AlignCenter);     //label centré
     lbl->setMouseTracking(false);
 
-    QPixmap qpixmapFondBlanc("C:/Users/M2IHM/Documents/projet_hap/img/fond.png");   //init fond blanc
+    QPixmap qpixmapFondBlanc(":/images/img/fond.png");   //init fond blanc
     fondBlanc = new QGraphicsPixmapItem(qpixmapFondBlanc);
     this->addItem(fondBlanc);
 

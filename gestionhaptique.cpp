@@ -42,7 +42,7 @@ GestionHaptique::GestionHaptique(QMainWindow * fen): mFenetre(fen)
 
     //Projet IFR
     mProjet = new CImmProject();
-    if(mProjet->OpenFile("C:/Users/M2IHM/Documents/projet_hap/friction10k.ifr", mSouris))
+    if(mProjet->OpenFile("C:\\Users\\M2IHM\\Documents\\projet_hap\\friction10k.ifr", mSouris))
     {
         //friction 10 000 : effet pour le cube lourd
         mFriction10k = new CImmFriction();
