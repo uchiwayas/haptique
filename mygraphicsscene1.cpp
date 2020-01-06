@@ -21,7 +21,7 @@ MyGraphicsScene1::MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap) :
 }
 
 /**
- * @brief MyGraphicsScene2::eventFilter.
+ * @brief MyGraphicsScene1::eventFilter.
  * Gère les evenements souris
  * @param object
  * @param ev

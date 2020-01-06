@@ -13,9 +13,23 @@ class MyGraphicsScene1 : public MyGraphicsScene
 {
 public:
     //constructor
+
+    /**
+     * @brief MyGraphicsScene1::MyGraphicsScene1
+     * Constructeur
+     * @param w : window
+     * @param mHap : gestion haptique
+     */
     MyGraphicsScene1(MainWindow *w, GestionHaptique *mHap);
 
     //functions
+
+    /**
+     * @brief MyGraphicsScene1::eventFilter.
+     * Gère les evenements souris
+     * @param object
+     * @param ev
+     */
     bool eventFilter(QObject *object, QEvent *ev); //event souris
 
 };

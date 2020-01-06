@@ -19,7 +19,20 @@ public:
     MyGraphicsScene(MainWindow *w, GestionHaptique *mHap);
 
     //functions
+
+    /**
+     * @brief MyGraphicsScene::checkGoNext
+     * check si on doit passer a la page suivante
+     * @return true si on doit passer à la page suivante, false sinon
+     */
     bool checkGoNext();                     //teste si la souris est cliquée sur le bord de l'écran pour passer à la page suivante
+
+
+    /**
+     * @brief MyGraphicsScene::keyPressEvent
+     * Gère les events clavier, echap = quitter
+     * @param event
+     */
     void keyPressEvent(QKeyEvent * event);  //evenement appui clavier
 
     //elements

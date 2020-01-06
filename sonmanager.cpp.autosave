@@ -47,6 +47,7 @@ void SonManager::killManager(){
 }
 
 void SonManager::playBackground(){
+    //Le fond sonore
     if(getInstance()->playerBackground->playlist() == NULL){
         QMediaPlaylist *playlist = new QMediaPlaylist();
         playlist->addMedia(QUrl(sons[AMBIANT]));
